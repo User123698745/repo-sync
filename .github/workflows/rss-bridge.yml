@@ -6,23 +6,12 @@ on:
     - cron: 0 0 * * *
 
 jobs:
-  sync:
-    name: sync fork
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: checkout target
-      uses: actions/checkout@v3
-      with:
-        repository: User123698745/rss-bridge
-        ref: master
-        token: ${{ secrets.PAT }}
-
-    - name: sync with upstream
-      uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
-      with:
-        upstream_sync_repo: RSS-Bridge/rss-bridge
-        upstream_sync_branch: master
-        target_sync_branch: master
-        git_config_pull_rebase: true
-        target_branch_push_args: --force-with-lease
+  master:
+    uses: ./.github/workflows/_sync.yml@main
+    with:
+      fork-name: User123698745/rss-bridge
+      fork-branch: master
+      upstream-name: RSS-Bridge/rss-bridge
+      upstream-branch: master
+    secrets:
+      token: ${{ secrets.PAT }}

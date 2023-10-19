@@ -1,0 +1,43 @@
+name: sync fork
+
+on:
+  workflow_call:
+    inputs:
+      fork-name:
+        type: string
+      fork-branch:
+        required: true
+        type: string
+      upstream-name:
+        type: string
+      upstream-branch:
+        required: true
+        type: string
+    secrets:
+      fork-name:
+        type: string
+      upstream-name:
+        type: string
+      token:
+        required: true
+        type: string
+
+jobs:
+  sync:
+    name: sync fork
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout fork
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ secrets.fork-name || ${{ inputs.fork-name }} }}
+          ref: ${{ inputs.fork-branch }}
+          token: ${{ secrets.token }}
+      - name: sync with upstream
+        uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
+        with:
+          upstream_sync_repo: ${{ secrets.upstream-name || ${{ inputs.upstream-name }} }}
+          upstream_sync_branch: ${{ inputs.upstream-branch }}
+          target_sync_branch: ${{ inputs.fork-branch }}
+          git_config_pull_rebase: true
+          target_branch_push_args: --force-with-lease
