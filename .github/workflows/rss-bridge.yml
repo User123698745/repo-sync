@@ -7,7 +7,7 @@ on:
 
 jobs:
   master:
-    uses: ./.github/workflows/_sync.yml@main
+    uses: ./.github/workflows/_sync.yml
     with:
       fork-name: User123698745/rss-bridge
       fork-branch: master
