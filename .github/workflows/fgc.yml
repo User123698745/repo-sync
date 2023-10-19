@@ -9,6 +9,8 @@ jobs:
   master:
     uses: ./.github/workflows/_sync.yml
     secrets:
-      fork: ${{ secrets.FGC_FORK }}
-      upstream: ${{ secrets.FGC_UPSTREAM }}
+      fork-name: ${{ secrets.FGC_FORK }}
+      fork-branch: master
+      upstream-name: ${{ secrets.FGC_UPSTREAM }}
+      upstream-branch: master
       token: ${{ secrets.PAT }}
