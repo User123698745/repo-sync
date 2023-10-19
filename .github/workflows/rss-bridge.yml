@@ -8,10 +8,9 @@ on:
 jobs:
   master:
     uses: ./.github/workflows/_sync.yml
-    with:
+    secrets:
       fork-name: User123698745/rss-bridge
       fork-branch: master
       upstream-name: RSS-Bridge/rss-bridge
       upstream-branch: master
-    secrets:
       token: ${{ secrets.PAT }}
