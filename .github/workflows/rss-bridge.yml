@@ -9,17 +9,13 @@ jobs:
   master:
     uses: ./.github/workflows/_sync.yml
     secrets:
-      fork-name: User123698745/rss-bridge
-      fork-branch: master
-      upstream-name: RSS-Bridge/rss-bridge
-      upstream-branch: master
+      fork: User123698745/rss-bridge/master
+      upstream: RSS-Bridge/rss-bridge/master
       token: ${{ secrets.PAT }}
 
   fork-master:
     uses: ./.github/workflows/_sync.yml
     secrets:
-      fork-name: User123698745/rss-bridge
-      fork-branch: fork-master
-      upstream-name: RSS-Bridge/rss-bridge
-      upstream-branch: master
+      fork: User123698745/rss-bridge/fork-master
+      upstream: RSS-Bridge/rss-bridge/master
       token: ${{ secrets.PAT }}

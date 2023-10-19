@@ -3,13 +3,9 @@ name: sync fork
 on:
   workflow_call:
     secrets:
-      fork-name:
+      fork:
         required: true
-      fork-branch:
-        required: true
-      upstream-name:
-        required: true
-      upstream-branch:
+      upstream:
         required: true
       token:
         required: true
@@ -19,17 +15,29 @@ jobs:
     name: sync fork
     runs-on: ubuntu-latest
     steps:
+      - name: input fork
+        uses: actions-ecosystem/action-regex-match@v2
+        id: fork
+        with:
+          text: ${{ secrets.fork }}
+          regex: '^([^\/]+\/[^\/]+)\/(.+)$'
+      - name: input upstream
+        uses: actions-ecosystem/action-regex-match@v2
+        id: upstream
+        with:
+          text: ${{ secrets.upstream }}
+          regex: '^([^\/]+\/[^\/]+)\/(.+)$'
       - name: checkout fork
         uses: actions/checkout@v4
         with:
-          repository: ${{ secrets.fork-name }}
-          ref: ${{ secrets.fork-branch }}
+          repository: ${{ steps.fork.outputs.group1 }}
+          ref: ${{ steps.fork.outputs.group2 }}
           token: ${{ secrets.token }}
       - name: sync with upstream
         uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
         with:
-          upstream_sync_repo: ${{ secrets.upstream-name }}
-          upstream_sync_branch: ${{ secrets.upstream-branch }}
-          target_sync_branch: ${{ secrets.fork-branch }}
+          upstream_sync_repo: ${{ steps.upstream.outputs.group1 }}
+          upstream_sync_branch: ${{ steps.upstream.outputs.group2 }}
+          target_sync_branch: ${{ steps.fork.outputs.group2 }}
           git_config_pull_rebase: true
           target_branch_push_args: --force-with-lease
