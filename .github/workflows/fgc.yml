@@ -1,0 +1,14 @@
+name: fgc
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 0 * * *
+
+jobs:
+  master:
+    uses: ./.github/workflows/_sync.yml
+    secrets:
+      fork: ${{ secrets.FGC_FORK }}
+      upstream: ${{ secrets.FGC_UPSTREAM }}
+      token: ${{ secrets.PAT }}
