@@ -16,13 +16,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: input fork
-        uses: KyoriPowered/action-regex-match@v4
+        uses: actions-ecosystem/action-regex-match@v2
         id: fork
         with:
           text: ${{ secrets.fork }}
           regex: '^([^\/]+\/[^\/]+)\/(.+)$'
       - name: input upstream
-        uses: KyoriPowered/action-regex-match@v4
+        uses: actions-ecosystem/action-regex-match@v2
         id: upstream
         with:
           text: ${{ secrets.upstream }}
