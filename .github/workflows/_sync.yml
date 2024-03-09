@@ -26,7 +26,7 @@ jobs:
           ref: ${{ secrets.fork-branch }}
           token: ${{ secrets.token }}
       - name: sync with upstream
-        uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
+        uses: aormsby/Fork-Sync-With-Upstream-action@v3.4.1
         with:
           upstream_sync_repo: ${{ secrets.upstream-name }}
           upstream_sync_branch: ${{ secrets.upstream-branch }}
