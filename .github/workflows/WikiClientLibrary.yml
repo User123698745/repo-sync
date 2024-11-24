@@ -1,0 +1,25 @@
+name: WikiClientLibrary
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 0 * * *
+
+jobs:
+  master:
+    uses: ./.github/workflows/_sync.yml
+    secrets:
+      fork-name: User123698745/WikiClientLibrary
+      fork-branch: master
+      upstream-name: CXuesong/WikiClientLibrary
+      upstream-branch: master
+      token: ${{ secrets.PAT }}
+
+  fork-master:
+    uses: ./.github/workflows/_sync.yml
+    secrets:
+      fork-name: User123698745/WikiClientLibrary
+      fork-branch: fork-master
+      upstream-name: CXuesong/WikiClientLibrary
+      upstream-branch: master
+      token: ${{ secrets.PAT }}
