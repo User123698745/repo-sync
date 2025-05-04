@@ -1,0 +1,25 @@
+name: DepotDownloader
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 0 * * *
+
+jobs:
+  master:
+    uses: ./.github/workflows/_sync.yml
+    secrets:
+      fork-name: User123698745/DepotDownloader
+      fork-branch: master
+      upstream-name: SteamRE/DepotDownloader
+      upstream-branch: master
+      token: ${{ secrets.PAT }}
+
+  fork-master:
+    uses: ./.github/workflows/_sync.yml
+    secrets:
+      fork-name: User123698745/DepotDownloader
+      fork-branch: fork-master
+      upstream-name: SteamRE/DepotDownloader
+      upstream-branch: master
+      token: ${{ secrets.PAT }}
